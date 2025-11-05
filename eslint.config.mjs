@@ -10,7 +10,7 @@ const compat = new FlatCompat({
   recommendedConfig: js.configs.recommended,
 });
 
-  /**
+/**
  * @see [Flat eslint config](https://eslint.org/docs/latest/use/configure/configuration-files)
  */
 export default [
@@ -69,7 +69,7 @@ export default [
       ...config,
       files: ['**/*.ts', '**/*.tsx', '**/*.cts', '**/*.mts'],
       linterOptions: {
-        reportUnusedDisableDirectives: "warn",
+        reportUnusedDisableDirectives: 'warn',
       },
       rules: {
         ...config.rules,
@@ -203,8 +203,8 @@ export default [
       },
       languageOptions: {
         parserOptions: {
-          project: ['tsconfig.base.json'],
-          createDefaultProgram: true,
+          project: ['tsconfig.*?.json'],
+          tsconfigRootDir: import.meta.dirname,
         },
       },
     })),
