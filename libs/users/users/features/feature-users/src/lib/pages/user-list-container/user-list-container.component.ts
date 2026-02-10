@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -21,19 +20,20 @@ import { UsersFilterComponent } from '../../components/users-filter/users-filter
   providers: [UserListContainerStore],
 })
 export class UserListContainerComponent {
-  private readonly componentStore = inject(UserListContainerStore);
   private readonly router = inject(Router);
-  public usersFacade = inject(UsersFacade);
-  public readonly users$ = this.componentStore.users$;
-  public readonly status$ = this.componentStore.status$;
-  public readonly errors$ = this.componentStore.errors$;
-  public readonly loggedUser$ = this.usersFacade.loggedUser$;
+  private readonly usersFacade = inject(UsersFacade);
+  private readonly componentStore = inject(UserListContainerStore);
 
-  onDeleteUser(user: UserVM) {
+  readonly users$ = this.componentStore.users$;
+  readonly status$ = this.componentStore.status$;
+  readonly errors$ = this.componentStore.errors$;
+  readonly loggedUser$ = this.usersFacade.loggedUser$;
+
+  onDeleteUser(user: UserVM): void {
     this.componentStore.deleteUser(user);
   }
 
-  onRedirectToEdit({ id, editMode }: { id: number; editMode: boolean }) {
+  onRedirectToEdit({ id, editMode }: UserRedirectPayload): void {
     this.router.navigate(['/admin/users', id], {
       queryParams: { edit: editMode },
     });
